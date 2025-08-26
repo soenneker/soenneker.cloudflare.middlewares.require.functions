@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net9.0</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <Platforms>AnyCPU</Platforms>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Description>A middleware component for Azure Functions that enforces Cloudflare-only access, blocking non-Cloudflare requests unless running in local/test environments.</Description>
+        <Version Condition="'$(BUILD_VERSION)' == ''">3.0.0</Version>
+        <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
+        <AssemblyName>Soenneker.Cloudflare.Middlewares.Require.Functions</AssemblyName>
+        <PackageId>Soenneker.Cloudflare.Middlewares.Require.Functions</PackageId>
+        <PackageTags>cloudflare middlewares require functions middleware requirecloudflaremiddleware util csharp dotnet c# .net</PackageTags>
+        <Copyright>Copyright © 2025 Jake Soenneker</Copyright>
+        <Authors>Jake Soenneker</Authors>
+        <Company>https://soenneker.com</Company>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <IsPackable>true</IsPackable>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/soenneker/soenneker.cloudflare.middlewares.require.functions</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/soenneker/soenneker.cloudflare.middlewares.require.functions</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryBranch>main</RepositoryBranch>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <LangVersion>latest</LangVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild></PropertyGroup>
+    
+    <ItemGroup>
+        
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+        <None Include="..\icon.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Soenneker.Cloudflare.Validators.Request.Functions" Version="3.0.1" />
+        <PackageReference Include="Soenneker.Enums.DeployEnvironment" Version="3.0.178" />
+        <PackageReference Include="Soenneker.Extensions.Configuration" Version="3.0.715" />
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Core" Version="2.0.0" />
+    </ItemGroup>
+</Project>
