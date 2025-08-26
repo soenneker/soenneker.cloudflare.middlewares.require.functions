@@ -19,13 +19,17 @@ public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
 {
     private readonly ILogger<RequireCloudflareMiddleware> _logger;
     private readonly ICloudflareRequestValidator _validator;
-    private readonly IConfiguration _config;
+    private readonly bool _exclude;
 
     public RequireCloudflareMiddleware(ILogger<RequireCloudflareMiddleware> logger, ICloudflareRequestValidator validator, IConfiguration config)
     {
         _logger = logger;
         _validator = validator;
-        _config = config;
+
+        var environment = config.GetValueStrict<string>("Environment");
+
+        if (environment == DeployEnvironment.Local || environment == DeployEnvironment.Test)
+            _exclude = true;
     }
 
     public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
@@ -39,16 +43,15 @@ public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
             return;
         }
 
-        var environment = _config.GetValueStrict<string>("Environment");
-        if (environment == DeployEnvironment.Local || environment == DeployEnvironment.Test)
+        if (_exclude)
         {
             await next(context);
             return;
         }
 
-        bool ok = await _validator.IsFromCloudflare(req).NoSync();
+        bool isCloudflare = await _validator.IsFromCloudflare(req).NoSync();
 
-        if (!ok)
+        if (!isCloudflare)
         {
             HttpResponseData res = req.CreateResponse(HttpStatusCode.Forbidden);
             await res.WriteStringAsync("Forbidden").NoSync();
