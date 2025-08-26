@@ -37,15 +37,9 @@ public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
         // Only applies to HTTP triggers
         HttpRequestData? req = await context.GetHttpRequestDataAsync().NoSync();
 
-        if (req is null)
+        if (req is null || _exclude)
         {
             await next(context).NoSync();
-            return;
-        }
-
-        if (_exclude)
-        {
-            await next(context);
             return;
         }
 
