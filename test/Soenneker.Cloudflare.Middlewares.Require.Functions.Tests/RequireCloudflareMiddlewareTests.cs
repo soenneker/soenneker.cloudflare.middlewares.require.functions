@@ -1,16 +1,15 @@
-﻿using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Cloudflare.Middlewares.Require.Functions.Tests;
 
-[Collection("Collection")]
-public sealed class RequireCloudflareMiddlewareTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public sealed class RequireCloudflareMiddlewareTests : HostedUnitTest
 {
-    public RequireCloudflareMiddlewareTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public RequireCloudflareMiddlewareTests(Host host) : base(host)
     {
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
