@@ -11,6 +11,11 @@ namespace Soenneker.Cloudflare.Middlewares.Require.Functions.Registrars;
 /// </summary>
 public static class RequireCloudflareMiddlewareRegistrar
 {
+    /// <summary>
+    /// Executes the use require cloudflare operation.
+    /// </summary>
+    /// <param name="builder">The builder.</param>
+    /// <returns>The result of the operation.</returns>
     public static IFunctionsWorkerApplicationBuilder UseRequireCloudflare(this IFunctionsWorkerApplicationBuilder builder)
     {
         builder.UseMiddleware<RequireCloudflareMiddleware>();

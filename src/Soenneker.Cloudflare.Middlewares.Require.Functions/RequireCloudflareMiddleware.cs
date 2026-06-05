@@ -32,6 +32,12 @@ public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
             _exclude = true;
     }
 
+    /// <summary>
+    /// Executes the invoke operation.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="next">The next.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
     {
         // Only applies to HTTP triggers
