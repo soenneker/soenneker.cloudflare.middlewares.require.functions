@@ -14,7 +14,6 @@ using Soenneker.Extensions.ValueTask;
 
 namespace Soenneker.Cloudflare.Middlewares.Require.Functions;
 
-///<inheritdoc cref="IRequireCloudflareMiddleware"/>
 public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
 {
     private readonly ILogger<RequireCloudflareMiddleware> _logger;
@@ -32,12 +31,6 @@ public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
             _exclude = true;
     }
 
-    /// <summary>
-    /// Executes the invoke operation.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="next">The next.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
     {
         // Only applies to HTTP triggers
@@ -49,14 +42,14 @@ public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
             return;
         }
 
-        bool isCloudflare = await _validator.IsFromCloudflare(req).NoSync();
+        bool isCloudflare = await _validator.IsFromCloudflare(req, context.CancellationToken).NoSync();
 
         if (!isCloudflare)
         {
             HttpResponseData res = req.CreateResponse(HttpStatusCode.Forbidden);
-            await res.WriteStringAsync("Forbidden").NoSync();
+            await res.WriteStringAsync("Forbidden", context.CancellationToken).NoSync();
             context.GetInvocationResult().Value = res;
-            _logger.LogWarning("Blocked non-Cloudflare request from {Ip}", req?.Url?.Host);
+            _logger.LogWarning("Blocked request to {Host} without a recognized Cloudflare client certificate", req.Url.Host);
             return;
         }
 
