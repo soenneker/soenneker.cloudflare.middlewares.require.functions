@@ -14,6 +14,7 @@ using Soenneker.Extensions.ValueTask;
 
 namespace Soenneker.Cloudflare.Middlewares.Require.Functions;
 
+/// <inheritdoc cref="IRequireCloudflareMiddleware" />
 public sealed class RequireCloudflareMiddleware : IRequireCloudflareMiddleware
 {
     private readonly ILogger<RequireCloudflareMiddleware> _logger;
