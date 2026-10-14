@@ -45,11 +45,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Cloudflare.Validators.Request.Functions" Version="4.0.416" PrivateAssets="analyzers;build" />
-        <PackageReference Include="Soenneker.Enums.DeployEnvironment" Version="4.0.256" />
-        <PackageReference Include="Soenneker.Extensions.Configuration" Version="4.0.903" />
+        <PackageReference Include="Soenneker.Cloudflare.Validators.Request.Functions" Version="4.0.422" PrivateAssets="analyzers;build" />
+        <PackageReference Include="Soenneker.Enums.DeployEnvironment" Version="4.0.258" />
+        <PackageReference Include="Soenneker.Extensions.Configuration" Version="4.0.909" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.127" />
+        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.132" />
     </ItemGroup>
 </Project>
